@@ -3,10 +3,14 @@ interface RackData {
   powerUsed: number;
   rackName: string;
 }
+
+let roomTotalDesign = 1520;
+// let rackTotalDesign = 1520;
+let roomTotalUsed = 0;
 const rackData: Record<string, RackData> = {
   b93239b31ba0b01046ac2f4b234bcb96: {
     powerDesign: 20,
-    powerUsed: 18.307587638778603,
+    powerUsed: 19.6,
     rackName: 'P3SJ01.01',
   },
   '753239b31ba0b01046ac2f4b234bcb97': {
@@ -16,7 +20,7 @@ const rackData: Record<string, RackData> = {
   },
   '313239b31ba0b01046ac2f4b234bcb98': {
     powerDesign: 20,
-    powerUsed: 9.474941271516524,
+    powerUsed: 8.0,
     rackName: 'P3SJ01.03',
   },
   f93239b31ba0b01046ac2f4b234bcb98: {
@@ -393,13 +397,11 @@ const addRack = (
   rackName: string,
 ) => {
   let message = '';
-  let newline = document.createElement('br');
+  // let newline = document.createElement('br');
   const rackDiv = document.getElementById('racks');
   if (rackDiv !== null) {
     // breaks
-    rackDiv.appendChild(newline);
-    newline = document.createElement('br');
-    rackDiv.appendChild(newline);
+    // rackDiv.appendChild(newline);
     // rack
     const newDiv = document.createElement('div');
     rackDiv.appendChild(newDiv);
@@ -422,29 +424,63 @@ const addRack = (
 
   }
 };
+const addRackMain = () => {
+  const rackDiv = document.getElementById('racks');
+  if (rackDiv !== null) {
+    while (rackDiv.firstChild) {
+      rackDiv.removeChild(rackDiv.firstChild);
+    }
+  }
+  const rackNameMetaSysId: Record<string, string> = {};
+  const rackNameSorted: Array<string> = [];
+  Object.keys(rackData).forEach((metaSysId) => {
+    rackNameMetaSysId[rackData[metaSysId].rackName] = metaSysId;
+    rackNameSorted.push(rackData[metaSysId].rackName);
+  });
+  rackNameSorted.sort();
+  roomTotalUsed = 0;
+  rackNameSorted.forEach((rackName) => {
+    const metaSysId = rackNameMetaSysId[rackName];
+    const powerDesign = rackData[metaSysId].powerDesign;
+    const powerUsed = rackData[metaSysId].powerUsed;
+    roomTotalUsed += powerUsed;
+    addRack(
+      powerDesign,
+      powerUsed,
+      rackName,
+    );
+  });
+};
+const redistribute = () => {
+  // recalculate roomTotalUsed
+  roomTotalUsed = 0;
+  Object.keys(rackData).forEach((metaSysId) => {
+    roomTotalUsed += rackData[metaSysId].powerUsed;
+  });
+  const thing = roomTotalDesign / roomTotalUsed;
+  // update rack power design
+  Object.keys(rackData).forEach((metaSysId) => {
+    rackData[metaSysId].powerDesign = rackData[metaSysId].powerUsed * thing;
+  });
+  addRackMain();
+};
 const createRoom = () => {
+  let message = '';
   const roomDiv = document.getElementById('room');
   if (roomDiv !== null) {
     roomDiv.classList.add('roomDiv');
-    roomDiv.innerText = 'P3SJ';
+    message += 'P3SJ\n\n';
+    message += `Room Design ${roomTotalDesign}\n`;
+    message += `Room Used ${roomTotalUsed}\n`;
+    message += `Percentage - ${((roomTotalUsed / roomTotalDesign) * 100).toFixed(2)}\n`;
+    roomDiv.innerText = message;
+    // redistributeButton button
+    const redistributeButton = document.createElement('div');
+    roomDiv.appendChild(redistributeButton);
+    redistributeButton.classList.add('button');
+    redistributeButton.innerText = 'Redistribute';
+    redistributeButton.addEventListener('click', redistribute);
   }
 };
-const rackNameMetaSysId: Record<string, string> = {};
-const rackNameSorted: Array<string> = [];
-const fakePower: Record<string, number> = {};
-Object.keys(rackData).forEach((metaSysId) => {
-  rackNameMetaSysId[rackData[metaSysId].rackName] = metaSysId;
-  rackNameSorted.push(rackData[metaSysId].rackName);
-});
-rackNameSorted.sort();
-rackNameSorted.forEach((rackName) => {
-  const metaSysId = rackNameMetaSysId[rackName];
-  const powerDesign = rackData[metaSysId].powerDesign;
-  const powerUsed = rackData[metaSysId].powerUsed;
-  addRack(
-    powerDesign,
-    powerUsed,
-    rackName,
-  );
-});
+addRackMain();
 createRoom();

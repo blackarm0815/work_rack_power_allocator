@@ -1,34 +1,43 @@
+
+.button {
+    background-color: #dedeff;
+    border: 1px solid #898989;
+    border-radius: 4px;
+    display: inline-block;
+    margin-top: 10px;
+    padding: 4px;
+  }
 .powerDesign {
     position: absolute;
     background-color: #95fd7b;
     top: 90px;
-    left: 10px;
+    left: 0px;
     height: 10px;
 }
 .powerUsed {
     position: absolute;
     background-color: #ff7878;
     top: 110px;
-    left: 10px;
+    left: 0px;
     height: 10px;
 }
 .rackDiv {
     background-color: #ffffff;
-    border: 1px solid #898989;
-    border-radius: 4px;
+    /* border: 1px solid #898989;
+    border-radius: 4px; */
     display: inline-block;
     padding: 4px;
     position: relative;
-    width: 400px;
-    height: 200px;
+    width: 300px;
+    height: 145px;
 }
 .roomDiv {
     background-color: #ffffff;
-    border: 1px solid #898989;
-    border-radius: 4px;
-    display: inline-block;
+    /* border: 1px solid #898989;
+    border-radius: 4px; */
+    /* display: inline-block; */
     padding: 4px;
     position: relative;
     width: 800px;
-    height: 400px;
+    height: 150px;
 }
