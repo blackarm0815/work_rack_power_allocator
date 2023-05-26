@@ -6,38 +6,84 @@
     display: inline-block;
     margin-top: 10px;
     padding: 4px;
-  }
+}
+.pduOuter {
+    border: 1px solid #898989;
+    border-radius: 4px;
+    margin: 20px;
+    padding: 20px;
+    position: relative;
+}
+.pduPowerDesign {
+    margin-bottom: 5px;
+}
+.pduTitle {
+    margin-bottom: 18px;
+    font-size: 200%;
+}
+.percentageInput {
+    margin-right: 10px;
+}
+.percentagePowerUsage {
+    margin-bottom: 10px;
+}
 .powerDesign {
-    position: absolute;
     background-color: #95fd7b;
-    top: 90px;
-    left: 0px;
+    left: 20px;
     height: 10px;
+    margin-bottom: 10px;
+}
+.powerDesignInput {
+    margin-bottom: 10px;
+    margin-right: 10px;
 }
 .powerUsed {
-    position: absolute;
     background-color: #ff7878;
-    top: 110px;
-    left: 0px;
+    left: 20px;
     height: 10px;
+    margin-bottom: 10px;
 }
-.rackDiv {
-    background-color: #ffffff;
-    /* border: 1px solid #898989;
-    border-radius: 4px; */
+.rackOuter {
+    border: 1px solid #898989;
+    border-radius: 4px;
     display: inline-block;
     padding: 4px;
     position: relative;
-    width: 300px;
-    height: 145px;
+    width: 380px;
+    margin: 20px;
+    padding: 20px;
+}
+.rackPowerDesign {
+    margin-bottom: 10px;
+}
+.rackPowerDesignTotal {
+    margin-bottom: 6px;
+}
+.rackPowerUsed {
+    margin-bottom: 6px;
+}
+.rackPowerUsageTotal {
+    margin-bottom: 5px;
+}
+.rackSafetyMargin {
+    margin-bottom: 12px;
+}
+.rackTitle {
+    font-size: 150%;
+    margin-bottom: 12px;
 }
 .roomDiv {
-    background-color: #ffffff;
-    /* border: 1px solid #898989;
-    border-radius: 4px; */
-    /* display: inline-block; */
+    border: 1px solid #898989;
+    border-radius: 4px;
     padding: 4px;
     position: relative;
     width: 800px;
     height: 150px;
+    margin: 20px;
+    padding: 20px;
 }
+.unusedPduPowerDesign {
+    margin-bottom: 25px;
+}
+
+
